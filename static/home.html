@@ -1,12 +1,21 @@
 <html>
 <head>
     <title>Uppi123 - Home</title>
+    <style type="text/css">
+		body{
+			background-color: whitesmoke;
+		}
+    </style>
 </head>
 <body>
 <h2>Welcome to Search Results Project by Uppi123</h2>
-<form action="search">
-    Enter search term here: <input type="text" name="term" required/>
-    <input type="submit" value="Search"/>
+<form id="cloud" action="search_results_word_cloud">
+    Enter Search Term Here: <input type="text" name="term" required/>
+    <input type="submit" value="Search Results Word Cloud Based On Word Frequency"/>
+</form>
+<form id="cluster" action="search_results_cluster">
+    Enter Search Term Here: <input type="text" name="term" required/>
+    <input type="submit" value="Search Results Clusters"/>
 </form>
 </body>
 </html>

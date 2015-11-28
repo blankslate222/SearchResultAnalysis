@@ -1,0 +1,62 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; utf-8">
+	<title>Wor Frequency Cloud</title>
+	<style type="text/css">
+		body{
+			background-color: whitesmoke;
+		}
+
+		@font-face {
+		    font-family: 'PTSans';
+		    src: url('../webfonts/ptsans/pt_sans-web-regular-webfont-2.eot');
+		    src: url('../webfonts/ptsans/pt_sans-web-regular-webfont-2.eot?iefix') format('eot'),
+		         url('../webfonts/ptsans/pt_sans-web-regular-webfont-2.woff') format('woff'),
+		         url('../webfonts/ptsans/pt_sans-web-regular-webfont-2.ttf') format('truetype'),
+		         url('../webfonts/ptsans/pt_sans-web-regular-webfont-2.svg#PTSansRegular') format('svg');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+
+		a.tag{
+			font-family: 'PTSans';
+			text-decoration: none;
+		}
+
+		li.cnt{
+			overflow: hidden;
+		    position: absolute;
+			display: block;
+		}
+
+		ul.cloud{
+			position: relative;
+			display: block;
+			width: ${width}px;
+			height: ${height}px;
+			overflow: hidden;
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		$css
+        $mycss
+	</style>
+</head>
+<body>
+<h3> $page_title </h3> <a href="http://127.0.0.1:5000/">Search Again</a>
+<div id = "wcloud">
+    <ul class="cloud">
+	$tags
+	</ul>
+</div>
+<h3> $list_title </h3>
+<div id="word_f">
+    <ul>
+        $word_freq
+    </ul>
+</div>
+
+</body>
+</html>
