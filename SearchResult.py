@@ -1,8 +1,11 @@
 import time
-from flask import Flask, request
-from SearchProcessor import SearchProcessor
-from WordFrequencyCloud import WordFrequencyCloud
 import traceback
+
+from flask import Flask, request
+
+from SearchProcessor import SearchProcessor
+from TextCluster import TextCluster
+from WordFrequencyCloud import WordFrequencyCloud
 
 app = Flask(__name__)
 
@@ -21,34 +24,27 @@ def word_cloud_controller():
     try:
         processor = SearchProcessor()
         wfc = WordFrequencyCloud()
+        start = time.clock()
+        word_freq_dict = processor.do_word_frequency_cloud(search_term)
+        print 'time to get word_Freq_dict = %s' % (str(time.clock() - start))
+        newstart = time.clock()
+        generated_word_cloud_html = wfc.generate_cloud(word_freq_dict, search_term)
+        print 'time to get html = %s' % (str(time.clock() - newstart))
+        print 'total time = %s' % (str(time.clock() - start))
     except Exception, err:
         traceback.print_exc()
-
-    start = time.clock()
-    word_freq_dict = processor.do_word_frequency_cloud(search_term)
-    print 'time to get word_Freq_dict = %s' % (str(time.clock() - start))
-    newstart = time.clock()
-    generated_word_cloud_html = wfc.generate_cloud(word_freq_dict)
-    print 'time to get html = %s' % (str(time.clock() - newstart))
-    print 'total time = %s' % (str(time.clock() - start))
     return generated_word_cloud_html
 
 
-@app.route('/search_results_cluster')
+@app.route('/search_cluster')
 def cluster_controller():
     search_term = request.values.get('term')
     if search_term is None:
         return 'Search term is a required parameter'
     print search_term
-    processor = SearchProcessor()
-    start = time.clock()
-    cluster_dict = processor.do_cluster()
-    print 'time to get cluster_dict = %s' % (str(time.clock() - start))
-    newstart = time.clock()
-
-    print 'time to generate view = %s' % (str(time.clock() - newstart))
-    print 'total time = %s' % (str(time.clock() - start))
-    return "generating clusters..."
+    cluster = TextCluster()
+    html_text = cluster.get_clusters(search_term)
+    return html_text
 
 
 if __name__ == '__main__':

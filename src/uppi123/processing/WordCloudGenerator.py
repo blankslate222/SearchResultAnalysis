@@ -1,6 +1,7 @@
 import collections
 import os
 import string
+
 import nltk
 import numpy as np
 from nltk.stem.porter import PorterStemmer
@@ -12,6 +13,7 @@ class WordCloudGenerator:
     uses nltk and sci-kit's sklearn libraries to vectorize the documents
     calls functions that return word cloud
     """
+
     def __init__(self):
         self
 

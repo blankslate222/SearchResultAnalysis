@@ -9,14 +9,15 @@ class WordFrequencyCloud:
     """
     uses pytagcloud library to generate word cloud html code
     """
+
     def __init__(self):
         self
 
-    def generate_cloud(self, cloud_words):
-        generated_html = self.generate_html(cloud_words)
+    def generate_cloud(self, cloud_words, search_term):
+        generated_html = self.generate_html(cloud_words, search_term)
         return generated_html
 
-    def generate_html(self, word_freq_tup_list):
+    def generate_html(self, word_freq_tup_list, search_term):
         """
         this function generates html file depicting word cloud word_freq_tup is passed by the caller
         :param word_freq_tup_list:
@@ -63,7 +64,8 @@ class WordFrequencyCloud:
         context['word_freq'] = "".join(
             "<li> %(key)s => %(val)s </li>" % {'key': t[0], 'val': str(t[1])} for t in word_freq_tup_list)
 
-        context['page_title'] = 'Frequency Based Word Cloud - Top 100 words from the search results (length(word) >= 3)'
+        context['page_title'] = 'Search Term : %s - Frequency Based Word Cloud - Top 100 words from search \
+            results (length(word) >= 3)' % search_term
         context['list_title'] = '300 features extracted and their corresponding frequencies'
         html_text = html_template.substitute(context)
         return html_text

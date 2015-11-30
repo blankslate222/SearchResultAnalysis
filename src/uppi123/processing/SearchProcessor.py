@@ -23,7 +23,7 @@ class SearchProcessor:
         :param search_term: search term from app home page
         :return: web hose query string
         """
-        site_types = ['blogs', 'news']
+        site_types = ['news']
         webhose.config(token='d72a236b-f6d9-4c52-b2d1-cceb9734579a')
         q = webhose.Query()
         q.__setattr__('body_text', search_term)
@@ -43,7 +43,7 @@ class SearchProcessor:
         # print post
         return post
 
-    def process_result(self, post, path=None, to_file=False):
+    def process_result(self, post, path=None):
         """
         process retrieved data and put them in files and a dictionary
         :param path: path of directory to store files for further processing
@@ -54,10 +54,7 @@ class SearchProcessor:
         file_dict = collections.OrderedDict()
         result_list = post.posts
 
-        if to_file and path is None:
-            return file_dict
-
-        if to_file and path is not None:
+        if path is not None:
             i = 0
             for result in result_list:
                 filename = "doc" + str(i)
@@ -83,12 +80,17 @@ class SearchProcessor:
         """
         function to return html for word cloud
         :param term: the search term
+        :param test:
         :return: html code as string
         """
-        wc_gen = WordCloudGenerator()
         path = 'G:\Nikhil\MS\MS_SEM3\\239\project\data'
+
+        wc_gen = WordCloudGenerator()
+
         webhose_data = self.get_data(term)
         file_content_dict = self.process_result(webhose_data)
+        # file_content_dict = self.process_result(webhose_data, path) # only for testing
+        # exit(0)
         # print file_content_dict
         if len(file_content_dict) > 0:
             word_freq_dict = wc_gen.generate_word_freq(path, file_content_dict)
@@ -96,15 +98,3 @@ class SearchProcessor:
             word_freq_dict = {}
 
         return word_freq_dict
-
-    def do_cluster(self, term):
-        # TODO: implement clustering based on tf-idf
-        webhose_data = self.get_data(term)
-        file_content_dict = self.process_result(webhose_data)
-        print file_content_dict
-        if len(file_content_dict) > 0:
-            cluster_dict = {}
-        else:
-            cluster_dict = {}
-
-        return cluster_dict

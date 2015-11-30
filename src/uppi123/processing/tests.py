@@ -2,8 +2,17 @@ import os
 import time
 
 import WordFrequencyCloud as pc
+from TextCluster import TextCluster
 
+tc = TextCluster()
+
+tc.do_kMeans("G:\\Nikhil\\MS\\MS_SEM3\\239\\project\\data")
+exit(0)
 """
+
+sp = SearchProcessor()
+sp.do_word_frequency_cloud('jaguar')
+exit(0)
 word_freq_tup_list = []
 word_freq_tup_list.append(('nikhil', 5))
 word_freq_tup_list.append(('rocky', 8))
